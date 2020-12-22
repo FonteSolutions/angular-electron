@@ -19,9 +19,19 @@ module.exports = (config, options) => {
             },
         },
     });
+    config.module.rules.push({
+        test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
+        use: {
+            loader: 'url-loader',
+            query: {
+                limit: 10000,
+                name: 'fonts/[name]--[folder].[ext]'
+            }
+        }
+    });
 
     if (options.fileReplacements) {
-        for(let fileReplacement of options.fileReplacements) {
+        for (let fileReplacement of options.fileReplacements) {
             if (fileReplacement.replace !== 'src/environments/environment.ts') {
                 continue;
             }
